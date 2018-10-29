@@ -1,0 +1,7 @@
+prog 
+	int  xa
+
+	xa  >=  x
+	22
+ 	
+endprog

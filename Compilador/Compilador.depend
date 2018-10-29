@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1540626234 source:/home/yan/Área de Trabalho/Compilador/main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	<string.h>
+
+1540626234 /home/yan/Área de Trabalho/Compilador/analex.h
+	"analex.c"
+
+1540786763 /home/yan/Área de Trabalho/Compilador/analex.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
