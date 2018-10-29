@@ -61,7 +61,6 @@ void analex(char c,FILE *fp){
                     i++;
                     estado=9;
                 }else if(isdigit(c)){
-                    printf("cu0");
                     buffer[i]=c;
                     i++;
                     estado=13;
@@ -146,7 +145,6 @@ void analex(char c,FILE *fp){
                 if(c=='='){
                     buffer[i]=c;
                     i++;
-                    printf("oi2\n");
                     estado=8;
                 }else{
                     estado=7;
@@ -238,7 +236,6 @@ void analex(char c,FILE *fp){
                 //talvez não de pra gravar em um vetor
                 i++;
               }else if(!(isdigit(c))&&!(c=='.')){
-                printf("cu2");
                 estado=12;
               }else if(c=='.'){
                 buffer[i]=c;
@@ -249,7 +246,6 @@ void analex(char c,FILE *fp){
        case 12:
             t.tip=INT;
             t.inteiro=atoi(buffer);
-            printf("cu");
             strcpy(buffer,"");
             i=0;
             estado=0;
