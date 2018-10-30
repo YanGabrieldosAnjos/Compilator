@@ -1,7 +1,7 @@
 prog 
-	int  xa
-
-	xa  >=  x
-	22
- 	
+	int  xa 
+	string x =  "aaaa"
+	xa  >= (x  .or. 2.22  ) 
+	
+ 	"aaaa" 
 endprog

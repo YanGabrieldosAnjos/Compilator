@@ -5,6 +5,7 @@
 #include <string.h>
 int main()
 {
+    Token tx;
     FILE *fp=fopen("teste.txt","r+");
     if(fp==NULL){
         printf("erro ao abrir arquivo");
@@ -13,7 +14,9 @@ int main()
     char c;
     while(!feof(fp)){
         c=fgetc(fp);
-        analex(c,fp);
+        tx=analex(c,fp);
+        printf("VALOR DO TOKEN :%s\n",tx.palavra);
+        printf("ID DO TOKEN : %d\n",tx.tip);
     }
     return 0;
 }

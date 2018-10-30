@@ -3,6 +3,6 @@
 #include "analex.c"
 
 
-void analex(char c,FILE *fp);
+Token analex(char c,FILE *fp);
 int finder(char c[10]);
 #endif // ANALEX_H_INCLUDED

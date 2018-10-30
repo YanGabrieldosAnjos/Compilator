@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef enum Tipo{BOOL=0,CHAR,ELSE,ENDFOR,ENDIF,ENDPROG,ENDWHILE,FOR,IF,INT,PROG,REAL,STRING,WHILE,//reservados,ler referencia dnv
-                       VIRGULA,PVIRGULA,MENOR,MENORIGUAL,MAIOR,MAIORIGUAL,ATRIB,IGUALDADE,hashtag,ID,SOMA,SUB,MULTI,DIV}tipo;//simbolos
-char reservadas[14][10]={"bool","char","else","endfor","endif","endprog","endwhile","for","if","int","prog","real","string","while"};
+typedef enum Tipo{BOOL=0,CHAR,ELSE,ENDFOR,ENDFUNC,ENDIF,ENDPROC,ENDPROG,ENDWHILE,FOR,FUNC,IF,INT,PROC,PROG,REAL,STRING,WHILE,//reservados,ler referencia dnv
+                       AND,OR,NOT,VIRGULA,PVIRGULA,PARD,PARE,MENOR,MENORIGUAL,MAIOR,MAIORIGUAL,ATRIB,IGUALDADE,hashtag,ID,SOMA,SUB,MULTI,DIV}tipo;//simbolos
 typedef struct{
     tipo tip;
      union{
@@ -15,8 +14,8 @@ typedef struct{
     }
 }Token;
 int finder(char *buffer){
-    char reservadas[14][10]={"bool","char","else","endfor","endif","endprog","endwhile","for","if","int","prog","real","string","while"};
-     int Tam=14;
+    char reservadas[17][10]={"bool","char","else","endfor","endfunc","endif","endproc","endprog","endwhile","for","func","if","int","proc","prog","real","string","while"};
+     int Tam=17;
      int inf = 0;     // limite inferior (o primeiro índice de vetor em C é zero          )
      int sup = Tam-1; // limite superior (termina em um número a menos. 0 a 9 são 10 números)
      int meio;
@@ -30,7 +29,6 @@ int finder(char *buffer){
           else
                inf = meio+1;
      }
-     printf("aqui func %s\n",reservadas[meio]);
      return -1;   // não encontrado
 }
 /*globais*/
@@ -39,7 +37,7 @@ Token t;
 char buffer[10];
 int i=0;
 /*fim globais*/
-void analex(char c,FILE *fp){
+Token analex(char c,FILE *fp){
     switch(estado){
         //estado inicial;
             case 0:
@@ -105,6 +103,7 @@ void analex(char c,FILE *fp){
                     i++;
                     estado=44;
                 }else if(c==')'){
+                    printf("oi3\n");
                     buffer[i]=c;
                     i++;
                     estado=49;
@@ -137,8 +136,6 @@ void analex(char c,FILE *fp){
                 strcpy(buffer,"");
                 i=0;
                 estado=0;
-                printf("%s\n",t.reservada);
-                printf("%d\n",t.tip);
                 //return t;
             break;
            case 2:
@@ -155,8 +152,6 @@ void analex(char c,FILE *fp){
                 t.tip=MENOR;
                 strcpy(t.palavra,buffer);
                 strcpy(buffer,"");
-                printf("%d\n",t.tip);
-                printf("%s\n",t.palavra);
                 i=0;
                 estado=0;
 
@@ -166,8 +161,6 @@ void analex(char c,FILE *fp){
                 t.tip=MENORIGUAL;
                 strcpy(t.palavra,buffer);
                 strcpy(buffer,"");
-                printf("%d\n",t.tip);
-                printf("%s\n",t.palavra);
                 i=0;
                 estado=0;
           break;
@@ -185,8 +178,6 @@ void analex(char c,FILE *fp){
                 t.tip=MAIORIGUAL;
                 strcpy(t.palavra,buffer);
                 strcpy(buffer,"");
-                printf("%d\n",t.tip);
-                printf("%s\n",t.palavra);
                 i=0;
                 estado=0;
          break;
@@ -195,8 +186,6 @@ void analex(char c,FILE *fp){
                 t.tip=MENOR;
                 strcpy(t.palavra,buffer);
                 strcpy(buffer,"");
-                printf("%d\n",t.tip);
-                printf("%s\n",t.palavra);
                 i=0;
                 estado=0;
         break;
@@ -214,8 +203,6 @@ void analex(char c,FILE *fp){
                 t.tip=IGUALDADE;
                 strcpy(t.palavra,buffer);
                 strcpy(buffer,"");
-                printf("%d\n",t.tip);
-                printf("%s\n",t.palavra);
                 i=0;
                 estado=0;
         break;
@@ -224,14 +211,11 @@ void analex(char c,FILE *fp){
                 t.tip=ATRIB;
                 strcpy(t.palavra,buffer);
                 strcpy(buffer,"");
-                printf("%d\n",t.tip);
-                printf("%s\n",t.palavra);
                 i=0;
                 estado=0;
         break;
         case 13:
               if(isdigit(c)){
-                printf("cu1");
                 buffer[i]=c;
                 //talvez não de pra gravar em um vetor
                 i++;
@@ -245,7 +229,7 @@ void analex(char c,FILE *fp){
        break;
        case 12:
             t.tip=INT;
-            t.inteiro=atoi(buffer);
+            t.inteiro=atol(buffer);
             strcpy(buffer,"");
             i=0;
             estado=0;
@@ -295,12 +279,12 @@ void analex(char c,FILE *fp){
             if(isalpha(c)||isdigit(c)){
                 buffer[i]=c;
                 i++;
-            }else{
+            }else if(c=='\"'){
                 estado=18;
             }
        break;
        case 18:
-            buffer[i]=0;
+            buffer[i]='\"';
             t.tip=STRING;
             strcpy(t.palavra,buffer);
             strcpy(buffer,"");
@@ -346,7 +330,14 @@ void analex(char c,FILE *fp){
             estado=0;
       break;
 
-    //case 32:
+      case 32:
+           if(!('\n')) {
+              buffer[i]=c;
+              i++;
+           }
+           i=0;
+           estado=0;
+      break;
       case 22:
             buffer[i]=c;
             estado=23;
@@ -354,19 +345,20 @@ void analex(char c,FILE *fp){
       case 23:
             buffer[i]=0;
             t.tip=MULTI;
-            strcpy(t.palavra,buffer);
+           strcpy(t.palavra,buffer);
             strcpy(buffer,"");
             i=0;
             estado=0;
       break;
       case 53:
             buffer[i]=c;
+            i++;
             estado=54;
       break;
       case 54:
             buffer[i]=0;
             t.tip=PVIRGULA;
-            strcpy(t.palavra,buffer);
+             strcpy(t.palavra,buffer);
             strcpy(buffer,"");
             i=0;
             estado=0;
@@ -383,7 +375,129 @@ void analex(char c,FILE *fp){
             i=0;
             estado=0;
       break;
+      case 49:
+            buffer[i]=c;
+            printf("oi1\n");
 
+            estado=50;
+      break;
+      case 50:
+            buffer[i]=0;
+            t.tip=PARD;
+           strcpy(t.palavra,buffer);
+           printf("oi\n");
+            strcpy(buffer,"");
+            i=0;
+            estado=0;
+      break;
+      case 44:
+            buffer[i]=c;
+            estado=48;
+      break;
+      case 48:
+            buffer[i]=0;
+            t.tip=PARE;
+             strcpy(t.palavra,buffer);
+            printf("%s\n",buffer);
+            strcpy(buffer,"");
+            i=0;
+            estado=0;
+      break;
+      case 35:
+            if(c=='a'){
+                buffer[i]=c;
+                i++;
+                estado=36;
+            }else if(c=='o'){
+                buffer[i]=c;
+                i++;
+                estado=37;
+            }else if(c=='n'){
+                buffer[i]=c;
+                i++;
+                estado=38;
+            }
+      break;
+      case 36:
+            if(c=='n'){
+                buffer[i]=c;
+                i++;
+                estado=39;
+            }
+      break;
+      case 39:
+            if(c=='d'){
+                buffer[i]=c;
+                i++;
+                estado=40;
 
+             }
+      break;
+      case 40:
+            if(c=='.'){
+                buffer[i]=c;
+                i++;
+                estado=41;
+            }
+      break;
+      case 41:
+           buffer[i]=0;
+           strcpy(t.palavra,buffer);
+           strcpy(buffer,"");
+           t.tip=AND;
+           i=0;
+           estado=0;
+     break;
+     case 37:
+            if(c=='r'){
+                buffer[i]=c;
+                i++;
+                estado=42;
+            }
+      break;
+     case 42:
+            if(c=='.'){
+                buffer[i]=c;
+                i++;
+                estado=43;
+            }
+      break;
+      case 43:
+           buffer[i]=0;
+           strcpy(t.palavra,buffer);
+           strcpy(buffer,"");
+           t.tip=OR;
+           i=0;
+           estado=0;
+     break;
+     case 38:
+        if(c=='o'){
+            buffer[i]=c;
+            i++;
+            estado=45;
+        }
+     break;
+    case 45:
+        if(c=='.'){
+            buffer[i]=c;
+            i++;
+            estado=46;
+        }
+     break;
+    case 46:
+           buffer[i]=0;
+           strcpy(t.palavra,buffer);
+           strcpy(buffer,"");
+           t.tip=NOT;
+           i=0;
+           estado=0;
+     break;
   }
+  return t;
 }
+/*
+MELHORIAS:
+    AUMENTAR O BUFFER PARA STRINGS EXTENSAS
+    TRATAR O ESPAÇO DUPLO(ALGUNS TOKENS SO SÃO RECONHECIDOS COM ESPAÇO DUPLO
+
+*/
