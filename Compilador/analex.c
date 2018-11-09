@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef enum Tipo{BOOL=0,CHAR,ELSE,ENDFOR,ENDFUNC,ENDIF,ENDPROC,ENDPROG,ENDWHILE,FOR,FUNC,IF,INT,PROC,PROG,REAL,STRING,WHILE,//reservados,ler referencia dnv
+typedef enum Tipo{BOOL=0,CHAR,ELSE,ENDFOR,ENDFUNC,ENDIF,ENDPROC,ENDPROG,ENDVAR,ENDWHILE,FOR,FUNC,IF,INT,PL,PROC,PROG,REAL,STRING,VAR,WHILE,//reservados,ler referencia dnv
                        AND,OR,NOT,VIRGULA,PVIRGULA,PARD,PARE,MENOR,MENORIGUAL,MAIOR,MAIORIGUAL,ATRIB,IGUALDADE,hashtag,ID,SOMA,SUB,MULTI,DIV}tipo;//simbolos
 typedef struct{
     tipo tip;
