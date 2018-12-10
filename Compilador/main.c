@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "analex.h"
+#include "anasint.h"
 #include <string.h>
 int main()
 {
@@ -15,8 +16,9 @@ int main()
     while(!feof(fp)){
         c=fgetc(fp);
         tx=analex(c,fp);
-        printf("VALOR DO TOKEN :%s\n",tx.palavra);
-        printf("ID DO TOKEN : %d\n",tx.tip);
+        printf("%s\n",tx.palavra);
+        printf("%d\n",tx.tip);
+        anasint(&tx);
     }
     return 0;
 }

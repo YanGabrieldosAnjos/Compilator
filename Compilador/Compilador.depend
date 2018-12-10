@@ -14,3 +14,30 @@
 	<stdlib.h>
 	<string.h>
 
+1544400367 source:/home/recrutaa/Área de Trabalho/Compilator-master/Compilador/main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	"anasint.h"
+	<string.h>
+
+1541767726 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/analex.h
+	"analex.c"
+
+1544401899 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/analex.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1544368661 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/anasint.h
+	"anasint.c"
+
+1544389715 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/anasint.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	"anasint.h"
+	<string.h>
+

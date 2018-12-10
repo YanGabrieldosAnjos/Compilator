@@ -14,7 +14,7 @@ typedef struct{
     }
 }Token;
 int finder(char *buffer){
-    char reservadas[17][10]={"bool","char","else","endfor","endfunc","endif","endproc","endprog","endwhile","for","func","if","int","proc","prog","real","string","while"};
+    char reservadas[17][10]={"bool","char","else","endfor","endfunc","endif","endproc","endprog","endwhile","for","func","if","int","pl","proc","prog","real","string","var","while"};
      int Tam=17;
      int inf = 0;     // limite inferior (o primeiro índice de vetor em C é zero          )
      int sup = Tam-1; // limite superior (termina em um número a menos. 0 a 9 são 10 números)
@@ -365,7 +365,7 @@ Token analex(char c,FILE *fp){
       break;
       case 51:
             buffer[i]=c;
-            estado=23;
+            estado=52;
       break;
       case 52:
             buffer[i]=0;

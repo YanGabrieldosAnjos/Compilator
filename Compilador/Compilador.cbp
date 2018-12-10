@@ -41,6 +41,13 @@
 		<Unit filename="analex.h">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
+		<Unit filename="anasint.c">
+			<Option compilerVar="CC" />
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="anasint.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
