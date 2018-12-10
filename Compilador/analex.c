@@ -24,8 +24,12 @@ Token t;
 char buffer[10];
 int i = 0;
 /*fim globais*/
+
+
 Token analex(char c, FILE *fp)
-{
+{   
+    t.tip=0;
+    strcpy(t.palavra," ");
     switch (estado)
     {
         //estado inicial;

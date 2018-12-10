@@ -7,7 +7,8 @@
 
 typedef enum Tipo
 {
-    BOOL = 0,
+    
+    BOOL=0,
     CHAR,
     ELSE,
     ENDFOR,

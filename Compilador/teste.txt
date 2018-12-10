@@ -1,6 +1,10 @@
+pl  xapa;     
+var  
+int  xa  ;    
+    string x ; 
+endvar 
 prog 
-    int  xa  ;
-    string x = "aaaa"
+
     xa  >= (x .or. 2.22  ) 
     "aaaa" 
 endprog

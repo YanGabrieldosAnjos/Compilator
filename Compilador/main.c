@@ -5,7 +5,8 @@
 #include "anasint.h"
 #include <string.h>
 int main()
-{
+{   
+    int i=0;
     Token tx;
     FILE *fp=fopen("teste.txt","r+");
     if(fp==NULL){
@@ -16,9 +17,7 @@ int main()
     while(!feof(fp)){
         c=fgetc(fp);
         tx=analex(c,fp);
-        printf("%s\n",tx.palavra);
-        printf("%d\n",tx.tip);
-        anasint(&tx);
+        i=anasint(&tx,i);
     }
     return 0;
 }
