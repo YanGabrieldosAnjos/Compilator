@@ -1,0 +1,7 @@
+prog 
+	int  xa 
+	string x =  "aaaa"
+	xa  >= (x  .or. 2.22 ) 
+	
+ 	"aaaa" 
+endprog

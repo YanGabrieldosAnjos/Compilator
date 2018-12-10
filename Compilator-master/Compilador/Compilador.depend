@@ -1,0 +1,60 @@
+# depslib dependency file v1.0
+1540867514 source:/home/yan/Área de Trabalho/Compilador/main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	<string.h>
+
+1540809768 /home/yan/Área de Trabalho/Compilador/analex.h
+	"analex.c"
+
+1540867801 /home/yan/Área de Trabalho/Compilador/analex.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1544400367 source:/home/recrutaa/Área de Trabalho/Compilator-master/Compilador/main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	"anasint.h"
+	<string.h>
+
+1541767726 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/analex.h
+	"analex.c"
+
+1544401899 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/analex.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1544368661 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/anasint.h
+	"anasint.c"
+
+1544389715 /home/recrutaa/Área de Trabalho/Compilator-master/Compilador/anasint.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	"anasint.h"
+	<string.h>
+
+1544407875 source:/home/recrutaa/Downloads/Compilator-master/Compilador/main.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	"analex.h"
+	"anasint.h"
+	<string.h>
+
+1544443479 /home/recrutaa/Downloads/Compilator-master/Compilador/analex.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+
+1544407875 /home/recrutaa/Downloads/Compilator-master/Compilador/anasint.h
+	"analex.h"
+
