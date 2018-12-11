@@ -1,8 +1,8 @@
 #include "analex.h"
 int finder(char *buffer)
 {
-    char reservadas[30][30] = {"bool", "char", "else", "endfor", "endfunc", "endif", "endproc", "endprog", "endwhile", "for", "func", "if", "int", "pl", "proc", "prog", "real", "string", "var", "while"};
-    int Tam = 17;
+    char reservadas[30][30] = {"bool", "char", "else", "endfor", "endfunc", "endif", "endproc", "endprog", "endvar", "endwhile", "for", "func", "if", "int", "pl", "proc", "prog", "real", "string", "var", "while"};
+    int Tam = 21;
     int inf = 0;       // limite inferior (o primeiro índice de vetor em C é zero          )
     int sup = Tam - 1; // limite superior (termina em um número a menos. 0 a 9 são 10 números)
     int meio;
@@ -25,11 +25,10 @@ char buffer[10];
 int i = 0;
 /*fim globais*/
 
-
 Token analex(char c, FILE *fp)
-{   
-    t.tip=0;
-    strcpy(t.palavra," ");
+{
+    t.tip = 0;
+    strcpy(t.palavra, " ");
     switch (estado)
     {
         //estado inicial;
@@ -42,7 +41,6 @@ Token analex(char c, FILE *fp)
         }
         else if (c == '<')
         {
-            printf("oi");
             buffer[i] = c;
             i++;
             estado = 2;
@@ -127,7 +125,6 @@ Token analex(char c, FILE *fp)
         }
         else if (c == ')')
         {
-            printf("oi3\n");
             buffer[i] = c;
             i++;
             estado = 49;
@@ -435,7 +432,6 @@ Token analex(char c, FILE *fp)
         break;
     case 49:
         buffer[i] = c;
-        printf("oi1\n");
 
         estado = 50;
         break;
@@ -443,7 +439,6 @@ Token analex(char c, FILE *fp)
         buffer[i] = 0;
         t.tip = PARD;
         strcpy(t.palavra, buffer);
-        printf("oi\n");
         strcpy(buffer, "");
         i = 0;
         estado = 0;

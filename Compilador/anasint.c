@@ -1,7 +1,8 @@
 #include "anasint.h"
 
-Token t;
-Token *vetorToken[10000];
+Token vetorToken[10000];
+int vetor_token_pos = 0;
+
 int x = 0;
 int estadoToken = 0;
 Pilha *v;
@@ -11,14 +12,14 @@ Pilha *inicializa_pilha(void)
     return NULL;
 }
 
-Pilha *criapilha(Token *v)
+Pilha *criapilha(Token v)
 {
     Pilha *novo = (Pilha *)malloc(sizeof(Pilha));
-    novo->info = v;
+    novo->info = &v;
     return novo;
 }
 
-Pilha *push(Pilha *p, Token *v)
+Pilha *push(Pilha *p, Token v)
 {
     Pilha *paux = p;
     Pilha *novo = criapilha(v);
@@ -52,36 +53,38 @@ Pilha *pop(Pilha *p)
 }
 
 //CONVERTENDO TIPOS
-int typeInt(Token *t)
+int typeInt(Token t)
 {
-    return t->inteiro;
+    return t.inteiro;
 }
-float typeFloat(Token *t)
+float typeFloat(Token t)
 {
-    return t->real;
+    return t.real;
 }
-char typeChar(Token *t)
+char typeChar(Token t)
 {
-    return t->caracter;
+    return t.caracter;
 }
-int isID(Token *t)
+int isID(Token t)
 {
-    if (t->tip == ID)
+    if (t.tip == ID)
     {
         return 1;
     }
     return 0;
 }
-int isType(Token *t)
+int isType(Token t)
 {
-    if (t->tip == CHAR || t->tip == INT || t->tip == STRING || t->tip == BOOL || t->tip == REAL)
+    if (t.tip == CHAR || t.tip == INT || t.tip == STRING || t.tip == BOOL || t.tip == REAL)
     {
         return 1;
     }
+
+    return 0;
 }
-int isEscope(Token *t)
+int isEscope(Token t)
 {
-    if (t->tip == PROG || t->tip == PROC || t->tip == FUNC)
+    if (t.tip == PROG || t.tip == PROC || t.tip == FUNC)
     {
         return 1;
     }
@@ -91,69 +94,91 @@ int prog(int j)
     return j;
 }
 
-int var(int j)
+int var(int stack_pos)
 {
-    v->escopo = 0;
-    while (vetorToken[j]->tip != ENDVAR)
+    printf("Iniciando verificacao de VAR.\n");
+
+    while (vetorToken[stack_pos].tip != ENDVAR)
     {
-        if (isType(vetorToken[j]))
+        if (stack_pos > vetor_token_pos)
         {
-            v = push(v, vetorToken[j]);
-            j++;
-            if (isID(vetorToken[j]))
+            printf("ERRO SINTATICO: VAR SEM ENDVAR");
+            return -1;
+        }
+        else if (isType(vetorToken[stack_pos]))
+        {
+            v = push(v, vetorToken[stack_pos]);
+            int id_pos = stack_pos + 1;
+
+            if (isID(vetorToken[id_pos]))
             {
-                v = push(v, vetorToken[j]);
-                j++;
+
+                printf("Variavel valida %s do tipo %s \n", vetorToken[id_pos].palavra, vetorToken[stack_pos].palavra);
+                v = push(v, vetorToken[id_pos]);
             }
             else
             {
-                printf("erro: sem identificador");
+
+                printf("%d ", vetorToken[stack_pos].tip);
+                printf("%d ", vetorToken[id_pos].tip);
+                printf("ERRO SINTATICO: DECLARACAO SEM IDENTIFICADOR");
+                return -1;
             }
-            printf("erro:sem tipo");
         }
-        if (isEscope(vetorToken[j]))
-        {
-            printf("erro:Sem  o endvar");
-            break;
-        }
+
+        stack_pos++;
     }
 
-    return j;
-}
-void start()
-{
-    int j = 0;
+    // VERIFICAR VARIAVEL REPETIDA
 
-    if (vetorToken[j]->tip == 14)
-    {
-        if (!isID(vetorToken[j]))
-        {
-            printf("erro aqui\n");
-        }
-        j++;
-        if (vetorToken[j]->tip = VAR)
-        {
-            j = var(j);
-        }
-        while (vetorToken[j]->tip == FUNC || vetorToken[j]->tip == PROC)
-        {
-            j = prog(j);
-        }
-    }
-    else
-    {
-        printf("erro SEM pl\n");
-    }
+    return stack_pos;
 }
-int anasint(Token *t, int i)
+
+int start()
 {
 
-    printf("%s\n", t->palavra);
-    printf("%d\n", t->tip);
+    for (int i = 0; i < vetor_token_pos; i++)
+    {
+        if (vetorToken[i].tip == VAR)
+        {
+            i = var(i);
 
-    vetorToken[i] = t;
+            if (i == -1)
+            {
+                return -1;
+            }
+        }
+    }
+}
+
+void stackAnasint(Token t)
+{
+    vetorToken[vetor_token_pos] = t;
+    vetor_token_pos++;
+}
+
+int anasint()
+{
+    printf("Mostrando o resultado dos tokens do analisador lexico.\n");
+    for (int i = 0; i < vetor_token_pos; i++)
+    {
+
+        if (vetorToken[i].tip == REAL)
+        {
+            printf("%d ", i);
+            printf("%f ", vetorToken[i].real);
+            printf("%d\n", vetorToken[i].tip);
+        }
+
+        else
+        {
+            printf("%d ", i);
+            printf("%s ", vetorToken[i].palavra);
+            printf("%d\n", vetorToken[i].tip);
+        }
+    }
 
     start();
 
-    return i;
+    return 1;
 }

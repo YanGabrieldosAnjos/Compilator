@@ -4,15 +4,17 @@
 
 //Estrutura do vetor para analise sintatica
 
-typedef struct pilha{
+typedef struct pilha
+{
     struct pilha *topo;
     Token *info;
     int escopo;
-}Pilha;
+} Pilha;
 
-int anasint(Token *t,int i);
-void start();
-int isID(Token *t);
+void stackAnasint(Token t);
+int anasint();
+int start();
+int isID(Token t);
 int prog(int j);
 int var(int j);
 #endif // ANASINT_H_INCLUDED

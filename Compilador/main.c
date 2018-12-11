@@ -19,7 +19,15 @@ int main(int argc, char *argv[])
     {
         c = fgetc(fp);
         tx = analex(c, fp);
-        i = anasint(&tx, i);
+
+        if (tx.tip != 0)
+        {
+            ungetc(c, fp);
+            stackAnasint(tx);
+        }
     }
+
+    anasint();
+
     return 0;
 }

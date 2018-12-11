@@ -1,10 +1,10 @@
 pl  xapa;     
-var  
-int  xa  ;    
-    string x ; 
+var     
+    int  xa  ;    
+    string  x   ; 
 endvar 
 prog 
 
-    xa  >= (x .or. 2.22  ) 
+    xa  >= ( x .or. 2.22  ) 
     "aaaa" 
 endprog
