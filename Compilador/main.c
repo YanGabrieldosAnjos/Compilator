@@ -27,7 +27,5 @@ int main(int argc, char *argv[])
         }
     }
 
-    anasint();
-
-    return 0;
+    return anasint();
 }

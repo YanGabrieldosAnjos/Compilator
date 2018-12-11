@@ -1,8 +1,15 @@
 pl  xapa;     
 var     
-    int  xa  ;    
-    string  x   ; 
+    int  xa;    
+    string  x; 
 endvar 
+func ( int yan  , int sergio )
+    int  sar;
+    real car;
+    if yan  >=  sergio {
+        
+    }  
+endfunc 
 prog 
 
     xa  >= ( x .or. 2.22  ) 

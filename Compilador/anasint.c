@@ -178,7 +178,5 @@ int anasint()
         }
     }
 
-    start();
-
-    return 1;
+    return start();
 }
